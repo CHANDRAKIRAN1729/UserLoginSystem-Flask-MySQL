@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="bg-clr">
+        <h1 class="heading">Job Cracker</h1>
+        <form action="signupsub" method="post" id="signupform">
+            <div class="space">
+                <label for="user" class="ls1">Username:</label>
+                <input type="text" id="user" class="inputEle" name="user"/>
+            </div>
+            <div class="space">
+                <label for="pass" class="ls1">Password:</label>
+                <input type="text" id="pass" class="inputEle" name="pass"/>
+            </div>
+            <div class="space">
+                <label for="cpass" class="ls">Confirm Password:</label>
+                <input type="text" id="cpass" class="inputEle"/>
+            </div>
+            <div class="cent">
+                <button type="button" class="button" class="clr" onclick="func()">Sign Up</button>
+            </div>
+            <hr class="w">
+        </form>
+        <form action="already" method="post" id="alreadysub">
+          <div class="space cent">
+              <label for="signup" class="ls">Already have an account?</label>
+              <button type="button" id="signup" class="button" onclick="func2()">Sign In</button>
+          </div>
+        </form>
+    </div>
+    <script>
+    function func(event){
+      var username=document.getElementById("user").value;
+      var pass=document.getElementById("pass").value;
+      var cpass=document.getElementById("cpass").value;
+      let flag1=1;
+      let flag2=1;
+      var done=1;
+      if(username.length<8){
+        flag1=0;
+        done=0;
+        alert("Please enter username more than 8 characters");
+      }
+      else{
+        const regex = /^[a-zA-Z]\w*$/;
+        if(!regex.test(username)){
+          done=0;
+          alert("Username must start with Alphabet and must contain only Alphabets, Digits and Underscores");
+        }
+      }
+      const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+      if(done && !regex.test(pass)){
+        flag2=0;
+        done=0;
+        alert("Password must be more than 8 characters and must contain atleast one of each Uppercase,Lowercase,digit,special Character");
+      }
+      if(done && flag2!=0 && pass!=cpass){
+        done=0;
+        alert("Confirm password must be matched");
+      }
+      if(done==1){
+        document.cookie=`${username}=${pass};`;
+        document.getElementById("signupform").submit();
+      }
+    }
+    function func2(event){
+      document.getElementById("alreadysub").submit();
+    }
+    </script>
+
+    {% if msg==True %}
+
+    <script >
+    if(performance.navigation.type != 2 && performance.navigation.type != 1)
+    {
+        alert("User already exist, Please register with another user name");
+    }
+    </script>
+    {% endif %}
+
+</body>
+<style>
+.bg-clr{
+    background-color: rgb(129, 201, 212);
+    padding: 10px;
+    height: 100vh;
+    text-align: center;
+}
+
+.w{
+    width: 65vw;
+}
+
+.clr{
+    color: white;
+}
+
+.ls{
+    font-weight: bold;
+    font-size: 25px;
+}
+
+.ls1{
+    font-weight: bold;
+    font-size: 25px;
+    padding-left: 90px;
+}
+
+.heading{
+    font-size: 80px;
+}
+
+.space{
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+.inputEle{
+    width: 50vw;
+    height: 30px;
+}
+
+.cent{
+    text-align: center;
+    margin-top: 20px;
+}
+
+.button{
+    color: white;
+    height: 35px;
+    width: 90px;
+    padding: 10px;
+    background-color: black;
+}
+
+</style>
+</html>

@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="bg-clr">
+        <div class="w-card">
+            <h1 class="heading" style="text-decoration:none">Hi {{un}}, Please enter your details</h1>
+            <form action="/detsub" method="POST" name="myform" id="detform">
+                <div class="space">
+                    <label for="uname" class="ls pa1">User Name :</label>
+                    <input type="text" id="uname" name="uname" class="inputEle" value="{{un}}" readonly/>
+                </div>
+                <div class="space">
+                    <label for="name" class="ls pa1">Full Name<span style="color:red">*</span> :</label>
+                    <input type="text" id="name" class="inputEle" name="fname"/>
+                </div>
+                <div class="space">
+                    <label for="address" class="ls pa2">Address<span style="color:red">*</span> :</label>
+                    <input type="text" id="address" class="inputEle" name="add"/>
+                </div>
+                <div class="space">
+                    <label for="email" class="ls pa3">Email<span style="color:red">*</span> :</label>
+                    <input type="text" id="email" class="inputEle" name="email"/>
+                </div>
+                <div class="space">
+                    <label class="ls1 pa4">Gender<span style="color:red">*</span> :</label>
+                    <input type="radio" id="male" class="lm" name="gen" value="M"/>
+                    <label for="male">Male</label>
+                    <input type="radio" id="female" class="lm" name="gen" value="F"/>
+                    <label for="female">Female</label>
+                </div>
+                <div class="space">
+                    <label for="country" class="ls pa5">Country<span style="color:red">*</span> :</label>
+                    <select id="country" class="inputEle" name="coun">
+                        <option class="country" checked>-select-</option>
+                        <option class="country">India</option>
+                        <option class="country">Canada</option>
+                        <option class="country">Russia</option>
+                        <option class="country">Australia</option>
+                        <option class="country">Germany</option>
+                        <option class="country">Japan</option>
+                        <option class="country">Brazil</option>
+                    </select>
+                </div>
+                <div class="space">
+                    <label for="graduation" class="ls pa10">Graduation<span style="color:red">*</span> :</label>
+                    <select id="graduation" class="inputEle" name="grad">
+                        <option class="grad" checked>-select-</option>
+                        <option class="grad">B.Tech</option>
+                        <option class="grad">M.Tech</option>
+                    </select>
+                </div>
+                <div class="space">
+                    <label for="experience" class="ls pa11">Experience:</label>
+                    <select id="experience" class="inputEle" name="exp">
+                        <option class="exp" checked>-select-</option>
+                        <option class="exp">Fresher</option>
+                        <option class="exp">1-2 years</option>
+                        <option class="exp">2-5 years</option>
+                        <option class="exp">more than 5 years</option>
+                    </select>
+                </div>
+                <div class="space">
+                    <label for="no" class="ls pa6">Phone No<span style="color:red">*</span> :</label>
+                    <input type="text" id="no" class="inputEle" name="phn"/>
+                </div>
+                <div class="space">
+                    <label for="linkedin" class="ls pa7">Linkedin:</label>
+                    <input type="text" id="linkedin" class="inputEle" name="linkd"/>
+                </div>
+                <div class="space">
+                    <label for="dob" class="ls pa8">DOB<span style="color:red">*</span> :</label>
+                    <input type="date" id="dob" class="inputEle" name="dob"/>
+                </div>
+                <div class="space">
+                    <label class="ls1 pa9">Work Mode<span style="color:red">*</span> :</label>
+                    <input type="radio" name="work" id="office" class="lm" value="Office"/>
+                    <label for="office">Office</label>
+                    <input type="radio" name="work" id="remote" class="lm" value="Remote"/>
+                    <label for="remote">Remote</label>
+                </div>
+                <div class="req" id="reqf" style="color:red;display:none">
+                    <h5>Please make sure all the required fields are filled</h5>
+                </div>
+                <div class="cent">
+                    <button type="button" class="button" onclick="func()">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+      function func(event){
+        var uname=document.getElementById("uname").value;
+        var name=document.getElementById("name").value;
+        var add=document.getElementById("address").value;
+        var email=document.getElementById("email").value;
+        var mal=document.getElementById("male").checked;
+        var fem=document.getElementById("female").checked;
+        var coun=document.getElementById("country").value;
+        var grad=document.getElementById("graduation").value;
+        var exp=document.getElementById("experience").value;
+        var no=document.getElementById("no").value;
+        var linkd=document.getElementById("linkedin").value;
+        var dob=document.getElementById("dob").value;
+        var off=document.getElementById("office").checked;
+        var rem=document.getElementById("remote").checked;
+        var done=1;
+
+        var regex = /^[a-zA-Z][a-zA-Z\s]*$/;
+        if(!regex.test(name)){
+          done=0;
+          alert("Full Name must start with an alphabet and should contain only alphabets and white spaces (No digits and special characters are allowed)");
+        }
+
+        var regex = /^[a-zA-Z0-9._%+-]+@(gmail|yahoo)\.(com|net|org|edu|gov|mil|info|biz)$/i;
+        if(done && !regex.test(email)){
+          done=0;
+          alert("Unidentified email format. Please provide a valid email address according to common email formats including Gmail, Yahoo and other popular mail providers");
+        }
+
+        var regex = /^[789]\d{9}$/;
+        if(done && !regex.test(no)){
+          done=0;
+          alert("Phone number must contain exactly 10 digits and should start with either 7,8 or 9\nNo other characters are allowed except numbers");
+        }
+
+        if(name=="" || add=="" || email=="" || coun=="-select-" || grad=="-select-" || no=="" || dob=="" || (mal==false && fem==false) ||(off==false && rem==false)){
+          document.getElementById("reqf").style.display='block';
+        }
+        else{
+          if(done==1){
+            document.getElementById("reqf").style.display='none';
+            document.getElementById("detform").submit();
+            alert("Details Saved Successfully");
+          }
+        }
+      }
+
+    </script>
+</body>
+<style>
+.bg-clr{
+    background-color: rgb(129, 201, 212);
+    padding: 130px;
+    height: 100vh;
+}
+
+.error{
+    color: red;
+    font-size: 15px;
+    padding-left: 150px;
+}
+.w-card{
+    background-color: white;
+    border-radius: 11px;
+    padding: 15px;
+    margin: 30px;
+}
+
+.heading{
+    text-decoration: underline;
+    text-align: center;
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.space{
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+.ls{
+    font-weight: bold;
+    font-size: 25px;
+
+}
+
+
+.ls1{
+    font-weight: bold;
+    font-size: 25px;
+    text-align: left;
+}
+
+.country{
+    font-weight: lighter;
+    font-size: 15px;
+}
+
+.grad{
+    font-weight: lighter;
+    font-size: 15px;
+}
+
+.exp{
+    font-weight: lighter;
+    font-size: 15px;
+}
+
+.inputEle{
+    width: 50vw;
+    height: 30px;
+}
+
+.button{
+    color: white;
+    height: 35px;
+    width: 90px;
+    padding: 10px;
+    background-color: black;
+}
+
+.lm{
+    margin-left: 10px;
+    font-size: 30px;
+}
+
+.cent{
+    text-align: center;
+    margin-top: 20px;
+}
+
+.pa1{
+    padding-left: 10px;
+}
+.pa2{
+    padding-left: 35px;
+}
+.pa3{
+    padding-left: 60px;
+}
+.pa4{
+    padding-left: 45px;
+}
+.pa5{
+    padding-left: 35px;
+}
+.pa6{
+    padding-left: 20px;
+}
+.pa7{
+    padding-left: 27px;
+}
+.pa8{
+    padding-left: 70px;
+}
+.pa9{
+    padding-left: 0px;
+}
+.pa10{
+    padding-left: 2px;
+}
+.pa11{
+    padding-left: 5px;
+}
+</style>
+
+</html>

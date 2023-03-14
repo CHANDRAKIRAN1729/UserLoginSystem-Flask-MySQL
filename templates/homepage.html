@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="bg-clr">
+        <h1 class="heading">Job Cracker</h1>
+        <img src="https://img.freepik.com/premium-vector/job-search-business-employee-with-magnify-search-work-logo-design_742608-101.jpg?w=2000" class="img"/>
+        <form action="signinsub" method="post" id="signinform">
+            <div class="space">
+                <label for="user" class="ls">Username:</label>
+                <input type="text" id="user" class="inputEle" name="user"/>
+            </div>
+            <div class="space inspace">
+                <label for="pass" class="ls">Password:</label>
+                <input type="text" id="pass" class="inputEle" name="pass" list="passes" onclick="func3();return false;"/>
+            </div>
+            <div class="cent">
+                <button type="button" class="button" onclick="func()">Sign In</button>
+            </div>
+            <hr class="w">
+        </form>
+        <form class="" action="page1" method="post" id="tosignupform">
+          <div class="space cent">
+              <label for="signup" class="ls">Create new account?</label>
+              <button id="signup" type="button" class="button clr" onclick="func2()"> Signup</button>
+          </div>
+        </form>
+    </div>
+
+    <script>
+      function func(event){
+        var username=document.getElementById("user").value;
+        var pass=document.getElementById("pass").value;
+        let done=1;
+        let flag=1;
+        if(username.length<8){
+          flag=0;
+          done=0;
+          alert("Please enter username more than 8 characters");
+        }
+        if(flag && (pass.length<8 || !(/[0-9]/.test(pass)) || !(/[a-z]/.test(pass)) || !(/[A-Z]/.test(pass)))){
+          done=0;
+          alert("Password must be more than 8 characters and must contain atleast one of each Uppercase,Lowercase,digit,special Character");
+        }
+        if(done==1){
+          document.getElementById("signinform").submit();
+        }
+      }
+      function func2(event){
+        document.getElementById("tosignupform").submit();
+      }
+      function func3(){
+        var username=document.getElementById("user").value;
+        if(username!=""){
+          var cooki=decodeURIComponent(document.cookie);
+          var pas="";
+          var array=cooki.split("; ");
+          array.forEach(element => {
+            if(element.indexOf(username)==0){
+              pas=element.substring(username.length+1);
+            }
+          });
+          if(pas!=""){
+            document.getElementById("pass").setAttribute('value',pas);
+          }
+        }
+      }
+    </script>
+
+    {% if msg==1 %}
+    <script >
+        if(performance.navigation.type != 2 && performance.navigation.type != 1)
+        {
+            alert("Invalid Username..!!");
+        }
+    </script>
+    {% endif %}
+
+    {% if msg==2 %}
+    <script >
+      if(performance.navigation.type != 2 && performance.navigation.type != 1)
+      {
+        alert("Invalid Password for Username..!!");
+      }
+    </script>
+    {% endif %}
+
+    {% if msg==3 %}
+    <script >
+      if(performance.navigation.type != 2 && performance.navigation.type != 1)
+      {
+        alert("User Registered Successfully, Now Please Sign in with your credentials..");
+      }
+    </script>
+    {% endif %}
+
+
+
+</body>
+<style>
+.bg-clr{
+    background-color: rgb(129, 201, 212);
+    padding: 10px;
+    height: 100vh;
+    text-align: center;
+}
+
+.clr{
+    color: white;
+}
+
+.w{
+    width: 65vw;
+}
+
+.ls{
+    font-weight: bold;
+    font-size: 25px;
+}
+
+.heading{
+    font-size: 80px;
+}
+
+.img{
+    height: 150px;
+    width: 180px;
+}
+
+.space{
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+.inputEle{
+    width: 55vw;
+    height: 30px;
+}
+
+.cent{
+    text-align: center;
+    margin-top: 20px;
+}
+
+.button{
+    color: white;
+    height: 35px;
+    width: 90px;
+    padding: 10px;
+    background-color: black;
+}
+
+</style>
+</html>
